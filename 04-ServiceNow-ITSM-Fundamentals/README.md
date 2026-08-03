@@ -2,28 +2,28 @@
 
 ## Overview
 
-This project introduces the core functionality of ServiceNow IT Service Management (ITSM) by simulating the lifecycle of an enterprise support incident.
+This project demonstrates the fundamental incident-management workflow in ServiceNow.
 
-The lab demonstrates how ServiceNow is used by IT Support teams to create, investigate, document, escalate, and resolve incidents while maintaining communication with end users.
+The lab covers incident creation, categorisation, prioritisation, assignment-group handling, internal investigation notes, customer communication, escalation, technical resolution, and closure.
 
 ---
 
 ## Scenario
 
-A Finance department employee reports that access to a shared department folder has been lost.
+A Finance department user reports that access to the shared Finance folder has been denied.
 
-The objective is to investigate the issue, document troubleshooting activities, communicate with the user, escalate when appropriate, restore access, and close the incident.
+The user previously had access and requires the folder for daily work. The Service Desk must investigate the issue, document findings, communicate with the user, escalate the access review, and record the final resolution.
 
 ---
 
 ## Technologies
 
 | Component | Technology |
-|------------|------------|
+|---|---|
 | ITSM Platform | ServiceNow |
+| Environment | Personal Developer Instance |
 | Module | Incident Management |
-| Environment | ServiceNow Developer Instance |
-| Scenario | Shared Folder Access |
+| Scenario | Shared-folder access issue |
 | Support Role | L1 IT Support |
 
 ---
@@ -32,100 +32,126 @@ The objective is to investigate the issue, document troubleshooting activities, 
 
 ```text
 04-ServiceNow-ITSM-Fundamentals/
-│
 ├── README.md
 └── Screenshots/
-    ├── 01_New_Incident.png
-    ├── 02_Incident_Triage.png
-    ├── 03_Customer_Update.png
+    ├── 01_ServiceNow_Navigator.png
+    ├── 02_New_Incident_Form.png
+    ├── 03_Incident_Investigation.png
     ├── 04_Incident_Escalation.png
-    └── 05_Incident_Resolution.png
+    └── 05_Incident_Resolved.png
 ```
+
+---
+
+# ServiceNow Navigation
+
+The ServiceNow Application Navigator was used to locate the Incident Management module and access incident lists and forms.
+
+This provided initial familiarity with the ServiceNow interface and core ITSM navigation.
+
+![ServiceNow Navigator](Screenshots/01_ServiceNow_Navigator.png)
 
 ---
 
 # Incident Creation
 
-A new ServiceNow incident was created for a Finance user who was unable to access a shared department folder.
+A new incident was created with the following details:
 
-The incident captured:
+```text
+Short description:
+Finance user cannot access shared department folder
 
-- User information
-- Business impact
-- Assignment
-- Priority
-- Initial investigation details
+Caller:
+System Administrator
 
-![New Incident](Screenshots/01_New_Incident.png)
+Category:
+Software
+
+Impact:
+2 - Medium
+
+Urgency:
+2 - Medium
+
+Priority:
+3 - Moderate
+
+Assignment group:
+Help Desk
+```
+
+The incident description documented the user's loss of access and the need to investigate permissions, group membership, and file-share accessibility.
+
+![New Incident Form](Screenshots/02_New_Incident_Form.png)
 
 ---
 
 # Initial Investigation
 
-The incident was reviewed by the Service Desk.
+The incident was moved into active investigation.
 
-Initial troubleshooting included:
+Initial checks included:
 
-- Verifying user authentication
-- Confirming network connectivity
-- Testing access to other shared resources
-- Identifying that the issue affected only the Finance shared folder
+- Caller identity verification
+- Network-connectivity confirmation
+- Testing access to other shared folders
+- Isolating the issue to the Finance shared folder
+- Reviewing possible Active Directory group-membership or NTFS-permission issues
 
-The findings were documented using internal investigation notes.
+The technical findings were recorded in internal work notes.
 
-![Incident Triage](Screenshots/02_Incident_Triage.png)
+A customer-facing update was also added to explain that the issue was under investigation.
 
----
-
-# Customer Communication
-
-The user received an update confirming that the issue was under investigation.
-
-The communication explained:
-
-- Initial checks completed
-- Current investigation status
-- Next troubleshooting steps
-
-Maintaining communication throughout the incident lifecycle helps manage user expectations.
-
-![Customer Update](Screenshots/03_Customer_Update.png)
+![Incident Investigation](Screenshots/03_Incident_Investigation.png)
 
 ---
 
-# Escalation
+# Work Notes and Customer Comments
 
-After completing L1 troubleshooting, the issue was escalated for further investigation.
+ServiceNow separates internal technical documentation from customer communication.
 
-The escalation included:
+| Field | Visibility | Purpose |
+|---|---|---|
+| Work notes | Internal IT staff | Investigation, findings, escalation, and technical actions |
+| Additional comments | Customer visible | Progress updates and user communication |
 
-- Summary of completed troubleshooting
-- Current findings
-- Suspected permission-related issue
-- Request for advanced investigation
+This distinction allows support technicians to document detailed technical work while providing clear, appropriate updates to the user.
 
-This ensured the next support team could continue the investigation without repeating previous work.
+---
+
+# Incident Escalation
+
+After completing the initial L1 investigation, the incident was escalated for further review.
+
+The escalation documentation included:
+
+- Successful user authentication
+- Confirmed network connectivity
+- Access to other shared folders
+- Isolation of the issue to the Finance folder
+- Suspected Active Directory group-membership or NTFS-permission issue
+
+The customer was informed that the permissions issue required further investigation.
 
 ![Incident Escalation](Screenshots/04_Incident_Escalation.png)
 
 ---
 
-# Resolution
+# Technical Resolution
 
-Investigation determined that the user was missing the required Active Directory security group membership for the Finance shared folder.
+The recorded root cause was that the user was missing the required Active Directory security-group membership for the Finance shared folder.
 
-The required permissions were restored and the user confirmed successful access.
+The resolution process included:
 
-Resolution documentation included:
+1. Adding the user to the authorised security group.
+2. Having the user sign out and sign back in.
+3. Refreshing the user's access token and group membership.
+4. Verifying access to the Finance shared folder.
+5. Confirming that the required files were accessible.
 
-- Root cause
-- Corrective action
-- Validation performed
-- User confirmation
+The incident was then moved to the resolved state.
 
-The incident was then resolved.
-
-![Incident Resolution](Screenshots/05_Incident_Resolution.png)
+![Incident Resolved](Screenshots/05_Incident_Resolved.png)
 
 ---
 
@@ -138,57 +164,67 @@ User Reports Issue
 Incident Created
         │
         ▼
+Categorisation and Priority
+        │
+        ▼
+Assignment Group
+        │
+        ▼
 Initial Investigation
         │
         ▼
-Customer Communication
+Work Notes and Customer Update
         │
         ▼
-Technical Investigation
+Escalation
         │
         ▼
-Escalation (if required)
+Technical Resolution
         │
         ▼
-Resolution
-        │
-        ▼
-Incident Closure
+Incident Resolved
 ```
 
 ---
 
-# Skills Demonstrated
+## Skills Demonstrated
 
-- ServiceNow Navigation
-- Incident Management
-- IT Service Management (ITSM)
-- Incident Prioritisation
-- Ticket Assignment
-- Customer Communication
-- Technical Documentation
-- Incident Escalation
-- Root Cause Identification
-- Resolution Documentation
-- Enterprise IT Support Workflow
-
----
-
-# Lessons Learned
-
-- ServiceNow provides a structured workflow for managing incidents from creation to closure.
-- Clear internal documentation improves collaboration between support teams.
-- Customer updates should be timely and easy to understand.
-- Escalation should include all troubleshooting already completed.
-- Accurate resolution notes create a valuable support history for future incidents.
+- ServiceNow navigation
+- Incident creation
+- Incident categorisation
+- Impact and urgency assessment
+- Priority calculation
+- Assignment-group handling
+- Work-note documentation
+- Customer-facing communication
+- Incident investigation
+- L1 escalation
+- Active Directory access troubleshooting
+- Shared-folder permission troubleshooting
+- Resolution documentation
+- Incident lifecycle management
+- ITSM fundamentals
 
 ---
 
-# Project Outcome
+## Lessons Learned
 
-This project demonstrates the fundamental ServiceNow incident management workflow used by enterprise IT support teams.
+- ServiceNow uses structured incident forms to maintain consistent support records.
+- Impact and urgency influence incident priority.
+- Assignment groups determine which support team owns the incident.
+- Work notes should contain detailed internal troubleshooting information.
+- Additional comments should provide clear customer-facing updates.
+- Escalation notes should document completed L1 checks to prevent duplicated troubleshooting.
+- Resolution notes should record the root cause, corrective action, and validation performed.
+- Access problems may be caused by missing group membership even when user authentication and network connectivity are functioning normally.
 
-The lab covers the complete lifecycle of an incident, including ticket creation, investigation, communication, escalation, resolution, and closure, providing practical experience with one of the industry's leading ITSM platforms.
+---
+
+## Project Outcome
+
+This project demonstrates a complete ServiceNow incident-management workflow from ticket creation through investigation, communication, escalation, resolution, and closure.
+
+It provides practical evidence of ServiceNow familiarity and IT Support processes commonly used in enterprise service-desk environments.
 
 ---
 
